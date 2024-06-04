@@ -5,3 +5,9 @@ public struct PickerItem {
 	public let track: Track
 	public let localPreviewURL: URL
 }
+
+extension PickerItem: Equatable {
+	public static func == (lhs: PickerItem, rhs: PickerItem) -> Bool {
+		lhs.track.id == rhs.track.id
+	}
+}

@@ -39,6 +39,11 @@ struct Demo: View {
 		.sheet(item: $searchTerm) { term in
 			SpotifyPickerView(configuration: configuration, pickerItem: $pickerItem, search: term.search)
 		}
+		.onChange(of: pickerItem) { item in
+			if let item {
+				print(item.localPreviewURL)
+			}
+		}
 	}
 }
 
