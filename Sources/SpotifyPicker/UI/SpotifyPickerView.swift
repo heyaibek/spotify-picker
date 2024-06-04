@@ -77,7 +77,8 @@ public struct SpotifyPickerView: View {
 			}
 			.disabled(tokenManager.isInvalidating || searchManager.isFetching)
 		}
-		.searchable(text: $searchText)
+		.navigationViewStyle(.stack)
+		.searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
 		.onSubmit(of: .search) {
 			Task {
 				await fetch()

@@ -32,7 +32,7 @@ struct Demo: View {
 				searchTerm = SearchTerm(search: "")
 			}
 			Button("Open Picker With Search") {
-				searchTerm = SearchTerm(search: "Skrillex")
+				searchTerm = SearchTerm(search: "Dabeul")
 			}
 		}
 		.padding()
