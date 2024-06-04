@@ -1,23 +1,5 @@
 import AVFoundation
 
-enum DownloadError: LocalizedError {
-	case missingPreviewURL
-	case invalidURL
-	case invalidCache
-	case invalidExportSession
-	case incompatibleExportSession
-
-	var errorDescription: String? {
-		switch self {
-		case .missingPreviewURL: "Selected track doesn't provide a preview URL."
-		case .invalidURL: "Invalid URL"
-		case .invalidCache: "Invalid Cache"
-		case .invalidExportSession: "Couldn't create an export session"
-		case .incompatibleExportSession: "Incompatible export options"
-		}
-	}
-}
-
 class DownloadManager: ObservableObject {
 	@Published private(set) var isDownloading = false
 
