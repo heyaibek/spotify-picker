@@ -20,11 +20,13 @@ public struct SpotifyPickerView: View {
 	@State private var viewState = ViewState.empty
 	@State private var selectedTrack: Track? = nil
 
-	public init(pickerItem: Binding<PickerItem?>) {
+	public init(configuration: SpotifyPickerConfiguration, pickerItem: Binding<PickerItem?>) {
+		Configuration.shared = configuration
 		_pickerItem = pickerItem
 	}
 
-	public init(pickerItem: Binding<PickerItem?>, search: String) {
+	public init(configuration: SpotifyPickerConfiguration, pickerItem: Binding<PickerItem?>, search: String) {
+		Configuration.shared = configuration
 		_pickerItem = pickerItem
 		_searchText = State(initialValue: search)
 	}

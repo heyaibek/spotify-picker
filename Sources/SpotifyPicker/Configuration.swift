@@ -22,13 +22,5 @@ public struct SpotifyPickerConfiguration {
 		self.secretCoder = secretCoder
 	}
 
-	init() {
-		guard let clientId = ProcessInfo.processInfo.environment["SPOTIFY_CLIENT_ID"],
-		      let clientSecret = ProcessInfo.processInfo.environment["SPOTIFY_CLIENT_SECRET"]
-		else {
-			return
-		}
-		self.clientId = clientId
-		self.clientSecret = clientSecret
-	}
+	init() {}
 }
