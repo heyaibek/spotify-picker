@@ -13,6 +13,7 @@ let package = Package(
 			"SpotifyPicker",
 		]),
 	],
+	dependencies: [],
 	targets: [
 		.target(name: "SpotifyPicker"),
 		.testTarget(name: "SpotifyPickerTests", dependencies: [
