@@ -1,9 +1,17 @@
 import SwiftUI
 
+/// `TrackView` is a SwiftUI view used to display information about a track and perform an action when tapped.
 struct TrackView: View {
+	/// The track to display information about.
 	private let track: Track
+	/// The action to perform when the view is tapped.
 	private let action: () -> Void
 
+	/// Initializes a TrackView with the specified track and action.
+	///
+	/// - Parameters:
+	///   - track: The track to display information about.
+	///   - action: The action to perform when the view is tapped.
 	init(_ track: Track, action: @escaping () -> Void) {
 		self.track = track
 		self.action = action

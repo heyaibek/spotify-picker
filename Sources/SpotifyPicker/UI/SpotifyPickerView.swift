@@ -1,6 +1,8 @@
 import SwiftUI
 
+/// `SpotifyPickerView` is a SwiftUI view designed to allow users to search for and select music tracks from Spotify.
 public struct SpotifyPickerView: View {
+	/// Represents the different states the view can be in during the search and selection process.
 	enum ViewState {
 		case empty
 		case invalidating
@@ -20,11 +22,20 @@ public struct SpotifyPickerView: View {
 	@State private var viewState = ViewState.empty
 	@State private var selectedTrack: Track? = nil
 
+	/// Initializes a `SpotifyPickerView` with the specified configuration and picker item binding.
+	/// - Parameters:
+	///   - configuration: Configuration includes details such as the client ID, client secret, and secret coder required for interacting with the Spotify API.
+	///   - pickerItem: A binding variable to track the selected item.
 	public init(configuration: SpotifyPickerConfiguration, pickerItem: Binding<PickerItem?>) {
 		Configuration.shared = configuration
 		_pickerItem = pickerItem
 	}
 
+	/// Initializes a `SpotifyPickerView` with the specified configuration, picker item binding, and initial search query.
+	/// - Parameters:
+	///   - configuration: Configuration includes details such as the client ID, client secret, and secret coder required for interacting with the Spotify API.
+	///   - pickerItem: A binding variable to track the selected item.
+	///   - search: Initial search query
 	public init(configuration: SpotifyPickerConfiguration, pickerItem: Binding<PickerItem?>, search: String) {
 		Configuration.shared = configuration
 		_pickerItem = pickerItem
