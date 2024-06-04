@@ -1,8 +1,19 @@
 import Foundation
 
+/// `TokenManager` is a class responsible for managing the Spotify API token, including invalidating and refreshing the token.
 class TokenManager: ObservableObject {
+	/// A published property that indicates whether the token invalidation process is currently ongoing.
 	@Published var isInvalidating = false
 
+	/// Invalidates the current token and requests a new one from Spotify.
+	///
+	/// - Throws:
+	///		- `SpotifyError.invalidURLComponents` if the URL components for the token endpoint are invalid.
+	///		- `SpotifyError.invalidURL` if the constructed URL is invalid.
+	///		- `SpotifyError.invalidHTTPResponse` if the response is not a valid HTTP response.
+	///		- `SpotifyError.badOAuth` if the response status code is 403.
+	///		- `SpotifyError.rateLimitExceeded` if the response status code is 429.
+	///		- `SpotifyError.unknownResponse(String)` for other status codes with the error message from the response.
 	@MainActor
 	func invalidateToken() async throws {
 		isInvalidating = true
@@ -38,6 +49,11 @@ class TokenManager: ObservableObject {
 		}
 	}
 
+	/// Constructs a URLRequest for the given URL with necessary headers and body parameters.
+	///
+	/// - Parameter url: The URL for the token request.
+	///
+	/// - Returns: A configured `URLRequest`.
 	private func buildRequest(for url: URL) -> URLRequest {
 		var request = URLRequest(url: url)
 		request.httpMethod = "POST"
@@ -52,6 +68,11 @@ class TokenManager: ObservableObject {
 		return request
 	}
 
+	/// Constructs the body data for the token request from the given parameters.
+	///
+	/// - Parameter parameters: A dictionary of parameters to be included in the request body.
+	///
+	/// - Returns: The body data encoded as `application/x-www-form-urlencoded`.
 	private func buildBody(parameters: [String: String]) -> Data? {
 		parameters
 			.map {

@@ -1,9 +1,28 @@
 import Foundation
 
+/// `SearchManager` is a class responsible for searching tracks on Spotify API using a given search query. It caches search results to optimize performance and reduce redundant network requests.
 class SearchManager: ObservableObject {
+	/// A published property that indicates whether the search request is currently ongoing.
 	@Published var isFetching = false
+
+	/// A private cache to store search results for quick retrieval.
 	private var cache: [String: [Track]] = [:]
 
+	/// Fetches tracks from Spotify based on the given query.
+	///
+	/// - Parameter query: The search query string.
+	///
+	/// - Returns: An array of `Track` objects matching the search query.
+	///
+	/// - Throws:
+	/// 	- `SpotifyError.expiredToken` if the current token is expired.
+	/// 	- `SpotifyError.invalidURLComponents` if the URL components for the search endpoint are invalid.
+	/// 	- `SpotifyError.invalidURL` if the constructed URL is invalid.
+	/// 	- `SpotifyError.invalidHTTPResponse` if the response is not a valid HTTP response.
+	/// 	- `SpotifyError.badToken` if the response status code is 401.
+	/// 	- `SpotifyError.badOAuth` if the response status code is 403.
+	/// 	- `SpotifyError.rateLimitExceeded` if the response status code is 429.
+	/// 	- `SpotifyError.unknownResponse(String)` for other status codes with the error message from the response.
 	@MainActor
 	func fetchTracks(query: String) async throws -> [Track] {
 		isFetching = true
@@ -58,6 +77,13 @@ class SearchManager: ObservableObject {
 		}
 	}
 
+	/// Constructs a URLRequest for the given URL with necessary headers, including the access token.
+	///
+	/// - Parameters:
+	///   - url: The URL for the search request.
+	///   - accessToken: The current access token for authentication.
+	///
+	/// - Returns: A configured URLRequest.
 	private func buildRequest(for url: URL, accessToken: String) -> URLRequest {
 		var request = URLRequest(url: url)
 		request.httpMethod = "GET"
